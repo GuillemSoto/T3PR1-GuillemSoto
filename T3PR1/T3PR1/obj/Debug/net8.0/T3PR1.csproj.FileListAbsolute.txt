@@ -1,0 +1,14 @@
+C:\Users\isard\source\repos\T3PR1\T3PR1\bin\Debug\net8.0\T3PR1.exe
+C:\Users\isard\source\repos\T3PR1\T3PR1\bin\Debug\net8.0\T3PR1.deps.json
+C:\Users\isard\source\repos\T3PR1\T3PR1\bin\Debug\net8.0\T3PR1.runtimeconfig.json
+C:\Users\isard\source\repos\T3PR1\T3PR1\bin\Debug\net8.0\T3PR1.dll
+C:\Users\isard\source\repos\T3PR1\T3PR1\bin\Debug\net8.0\T3PR1.pdb
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\T3PR1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\T3PR1.AssemblyInfoInputs.cache
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\T3PR1.AssemblyInfo.cs
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\T3PR1.csproj.CoreCompileInputs.cache
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\T3PR1.dll
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\refint\T3PR1.dll
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\T3PR1.pdb
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\T3PR1.genruntimeconfig.cache
+C:\Users\isard\source\repos\T3PR1\T3PR1\obj\Debug\net8.0\ref\T3PR1.dll
