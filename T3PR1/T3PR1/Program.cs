@@ -1,4 +1,4 @@
-﻿using System.Reflection.Emit;
+using System.Reflection.Emit;
 using System.Runtime.ConstrainedExecution;
 using System;
 using System.Drawing;
@@ -13,6 +13,10 @@ namespace T3PR1
             string storedInfo = "Data i hora             Tipus d'energia     Paràmetres de l'energia     Quantitat d'energia\n";
             Menu(storedInfo);
         }
+        /// <summary>
+        /// Funció per printar el menú i executar cadascuna de les funcions
+        /// </summary>
+        /// <param name="storedInfo">storedInfo és l'string que emmagatzema la informació de totes les simulacions</param>
         static void Menu(string storedInfo)
         {
             const string endMsg = "Programa finalitzat";
@@ -49,6 +53,12 @@ namespace T3PR1
                 default: Console.WriteLine(errorMsg); Menu(storedInfo); break;
             }
         }
+        /// <summary>
+        /// Emmagatzema la informació de la simulació que acaba de passar
+        /// </summary>
+        /// <param name="storedInfo"></param>
+        /// <param name="simulationResult">simulationResult és l'string que es retorna de la simulació que acaba de pasar</param>
+        /// <returns>Retorna l'string amb l'informació de totes les sessions</returns>
         static string StoreInfo(string storedInfo, string[] simulationResult)
         {
             for (int i = 0; i < simulationResult.Length; i++)
@@ -57,38 +67,29 @@ namespace T3PR1
             }
             return storedInfo;
         }
+        /// <summary>
+        /// Prepara l'array d'strings de la simulació
+        /// </summary>
+        /// <returns>Retorna l'array amb l'informació de les simulacions</returns>
         static string[] simulationStart()
         {
             string[] simulations = new string[AmountOfSimulations()];
             return EnergyType(simulations);
         }
+        /// <summary>
+        /// Retorna el numero de simulacions que vols fer en la sessió
+        /// </summary>
         static int AmountOfSimulations()
         {
             const string msgAmountSimulations = "Quantes simulacions vols fer?";
-            int amountOfSimulations = 0;
+            int minRange = 0;
             bool flag = false;
             Console.WriteLine(msgAmountSimulations);
-            while (!flag)
-            {
-                try
-                {
-                    amountOfSimulations = int.Parse(Console.ReadLine());
-                    if (amountOfSimulations >= 0)
-                    {
-                        flag = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine(errorMsg);
-                    }
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine(errorMsg);
-                }
-            }
-            return amountOfSimulations;
+            return AskNum(minRange);
         }
+        /// <summary>
+        /// S'escull el tipus d'energia i comencen les simulacions amb el tipus corresponent
+        /// </summary>
         static string[] EnergyType(string[] simulation)
         {
             const string energyMenu = "Escull el tipus d'energia: \nEòlica(1)\nHidroelèctrica(2)\nSolar(3)";
@@ -124,24 +125,31 @@ namespace T3PR1
                 default: Console.WriteLine(errorMsg); return null;
             }
         }
+        /// <summary>
+        /// Amb un for es van creant instàncies de objectes de classe Solar per calcular l'energia que es genera a la simulació i s'emmagatzema en la posició corresponent de l'array
+        /// </summary>
+        /// <returns>Retorna l'array d'strings amb els paràmetres de la simulació</returns>
         static string[] SolarEnergy(string[] simulation)
         {
             //EN HORAS
             const string solarString = "     Solar               ";
             const string solarSpace = "                          ";
             const string enterSunHours = "Introdueix les hores de sol (han de ser més de 0)";
-            bool flag = false;
             int sunHours = 0;
             int minRange = 1;
             Console.WriteLine(enterSunHours);
             for (int i = 0; i < simulation.Length; i++)
             {
-                sunHours=AskNum(sunHours, minRange);
+                sunHours=AskNum(minRange);
                 Solar solar = new Solar(sunHours);
                 simulation[i] = solarString + sunHours + solarSpace + solar.CalculateEnergy() + jouleString;
             }
             return simulation;
         }
+        /// <summary>
+        /// Amb un for es van creant instàncies de objectes de classe Hydroelectric per calcular l'energia que es genera a la simulació i s'emmagatzema en la posició corresponent de l'array
+        /// </summary>
+        /// <returns>Retorna l'array d'strings amb els paràmetres de la simulació</returns>
         static string[] HydroelectricEnergy(string[] simulation)
         {
             //EN M3
@@ -153,12 +161,16 @@ namespace T3PR1
             Console.WriteLine(enterVolumeOfFlow);
             for (int i = 0; i < simulation.Length; i++)
             {
-                volumeOfFlow=AskNum(volumeOfFlow, minRange);
+                volumeOfFlow=AskNum(minRange);
                 Hydroelectric hydro = new Hydroelectric(volumeOfFlow);
                 simulation[i] = hydroString + volumeOfFlow + hydroSpace + hydro.CalculateEnergy() + jouleString;
             }
             return simulation;
         }
+        /// <summary>
+        /// Amb un for es van creant instàncies de objectes de classe Eolic per calcular l'energia que es genera a la simulació i s'emmagatzema en la posició corresponent de l'array
+        /// </summary>
+        /// <returns>Retorna l'array d'strings amb els paràmetres de la simulació</returns>
         static string[] EolicEnergy(string[] simulation)
         {
             //EN M/S
@@ -170,14 +182,20 @@ namespace T3PR1
             Console.WriteLine(enterWindSpeed);
             for (int i = 0; i < simulation.Length; i++)
             {
-                windSpe=AskNum(windSpe, minRange);
+                windSpe=AskNum(minRange);
                 Eolic eolic = new Eolic(windSpe);
                 simulation[i] = eolicString + windSpe + eolicSpace + eolic.CalculateEnergy() + jouleString;
             }
             return simulation;
         }
-        static int AskNum(int num, int minRange)
+        /// <summary>
+        /// Demana números per consola i gestiona els errors de format o de rang.
+        /// </summary>
+        /// <param name="minRange">El rang mínim que pot tenir el número demanat</param>
+        /// <returns>Retorna el número demanat</returns>
+        static int AskNum(int minRange)
         {
+            int num = 0;
             bool flag = false;
             while (!flag)
             {
